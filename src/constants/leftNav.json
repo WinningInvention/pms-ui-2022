@@ -1,0 +1,44 @@
+[
+    {
+        "name":"Dashboard","pathName":"/","className":"fa-solid fa-gauge"
+    },
+    {
+        "name":"User Management","pathName":"/user-management","className":"fa-solid fa-user"
+    },
+    {
+        "name":"New Admission","pathName":"/new-admission","className":"fa-solid fa-address-book"
+    },
+    {
+        "name":"Referral","pathName":"/referral","className":"fa-solid fa-notes-medical"
+    },
+    {
+        "name":"Outlier In","pathName":"/outlier-in","className":"fa-solid fa-notes-medical"
+    },
+    {
+        "name":"Patient Allocation","pathName":"/bed-allocate","className":"fa-solid fa-hospital"
+    },
+    {
+        "name":"Zones/Bed","pathName":"/zones-bed","className":"fa-solid fa-bed"
+    },
+    {
+        "name":"Zones/Bed1","pathName":"/zones-card1","className":"fa-solid fa-bed"
+    },
+    {
+        "name":"Zones Bird Eye","pathName":"/all-zones","className":"fa-solid fa-bed"
+    },
+    {
+        "name":"Discharge List","pathName":"/discharge-list","className":"fa-solid fa-notes-medical"
+    },
+    {
+        "name":"Outlier Out","pathName":"/outlier-out","className":"fa-solid fa-notes-medical"
+    },
+    {
+        "name":"Repatriation","pathName":"/repat","className":"fa-solid fa-notes-medical"
+    },
+    {
+        "name":"Nurse Entry","pathName":"/add-nurse-availability","className":"fa-solid fa-user-nurse"
+    },
+    {
+        "name":"Nurse Status","pathName":"/nurse-availability","className":"fa-solid fa-user-nurse"
+    }
+]
