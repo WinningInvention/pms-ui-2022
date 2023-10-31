@@ -10,6 +10,7 @@ import {
   Field,
   Input,
   Button,
+  Textarea,
 } from "@windmill/react-ui";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
@@ -36,8 +37,12 @@ const ZoneCardViewNew = () => {
   const [readyModal, setReadydModal] = useState(false);
   const [finalModal, setFinalModal] = useState(false);
   const [patientUpdateModal, setPatientUpdateModal] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
   const [movePatientInfo, setMovePatientInfo] = useState({});
   const [patientUpdateInfo, setPatientUpdateInfo] = useState({});
+  const [commentInfo, setCommentInfo] = useState({});
+  const [fetchedComment, setFetchedComment] = useState([]);
+  const [patientBedId, setPatientBedId] = useState();
   const [newBed, setNewBed] = useState({});
   const [predictedDate, setPredictedDate] = useState();
   const [dischargeDateTime, setDischargeDateTime] = useState();
@@ -46,6 +51,7 @@ const ZoneCardViewNew = () => {
   const [priorityLevelMaster, setPriorityLevelMaster] = useState([]);
   // const [isSpecialist, setIsSpecialist] = useState(false);
   const [provisionalDiagnosis, setProvisionalDiagnosis] = useState(false);
+  // const [patientComment, setPatientComment] = useState(false);
   const [multiSelectedOptions, setMultiSelectedOptions] = useState([]);
   const [clinicalRequirementList, setClinicalRequirementList] = useState();
   const [displayTextField, setDisplayTextField] = useState(false);
@@ -82,6 +88,15 @@ const ZoneCardViewNew = () => {
     reset: resetReady,
   } = useForm({
     // resolver: yupResolver(ReadySchema),
+  });
+
+  const {
+    register: commentInsertOrUpdate,
+    handleSubmit: handleSubmitComment,
+    formState: { errors: errorsComment },
+    reset: resetComment,
+  } = useForm({
+   
   });
 
   const onSubmit = async (_formData) => {
@@ -179,6 +194,7 @@ const ZoneCardViewNew = () => {
           var value = multiSelectedOptions[i].value + ",";
           ClinicalRequirementData += value;
         }
+       
       }
     }
 
@@ -205,6 +221,35 @@ const ZoneCardViewNew = () => {
     Spinner.hide();
   };
 
+  const insertCommentData = async (_formData) => {
+    Spinner.show();
+    let data = {
+      patientBedId: commentInfo.patientBedId,
+      "comment": _formData.comment,
+    };
+    let url = "api/ZoneBed/InsertOrUpdatePatientBedComment";
+    let response = await Services.postRequest(url, data);
+     
+    // await fetchComments(patientBedId);
+    closeModal();
+    response.statusCode === 201
+      ? Alert.success("Comment added successfully")
+      : Alert.error(response);
+      await onZoneChange(zoneId);
+
+    Spinner.hide();
+  };
+  
+  const fetchComments = async (patientBedId) => {
+    Spinner.show();
+   setPatientBedId(patientBedId);
+    const url = "api/ZoneBed/GetCommentByPatientBedId?PatientBedId=" + patientBedId;
+    const response = await Services.getRequest(url);
+      setFetchedComment(response.comment);
+     // await onZoneChange(zoneId);
+    Spinner.hide();
+  };  
+
   const openModal = (val, item) => {
     if (val == "opt1") {
       setPatientTransferModal(true);
@@ -224,7 +269,8 @@ const ZoneCardViewNew = () => {
     } else if (val == "opt4") {
       setFinalModal(true);
       setDischargeDateTime("");
-    } else if (val == "opt5") {
+    } 
+    else if (val == "opt5") {
       if (item.clinicalRequirementsArray.length > 0) {
         let data = item.clinicalRequirementsArray.map((item) => ({
           value: item,
@@ -246,7 +292,16 @@ const ZoneCardViewNew = () => {
         setPatientUpdatePredictedDate(item.predictedDatetime);
       }
       setPatientUpdateModal(true);
+
+    } else if (val == "opt6"){
+      setCommentModal(true);
+
+      setCommentInfo(item);
+      fetchComments(item.patientBedId);
+      
+       resetComment({comment: item.comment});
     }
+  
     setIsModalOpen(true);
   };
   function closeModal() {
@@ -256,6 +311,7 @@ const ZoneCardViewNew = () => {
     setReadydModal(false);
     setFinalModal(false);
     setPatientUpdateModal(false);
+    setCommentModal(false);
   }
 
   useEffect(() => {
@@ -438,6 +494,16 @@ const ZoneCardViewNew = () => {
                         >
                           Patient Update
                         </div>
+
+                        <div
+                          className="dropdown-item"
+                          onClick={(e) => {
+                            openModal("opt6", item);
+                          }}
+                        >
+                         Patient Comments
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -467,11 +533,9 @@ const ZoneCardViewNew = () => {
                         {item.patientHospitalNumber}
                       </div>
                       <div class="text-muted text-uppercase">
-                        {item.patientId == null
-                          ? ""
-                          : item.provisionaldiagnosis}
+                        {item.patientId == null ? "" : item.provisionaldiagnosis}
                       </div>
-
+                     
                       <div class="text-muted text-uppercase">
                         {item.patientId == null
                           ? ""
@@ -485,6 +549,8 @@ const ZoneCardViewNew = () => {
                     </div>
                   )}
                 </div>
+
+                <div class="text-muted d-flex justify-content-center"> {item.comment} </div>
 
                 <div class="text-end flex-1 p-2 d-flex justify-content-center">
                   {item.clinicalRequirementsArray &&
@@ -931,6 +997,46 @@ const ZoneCardViewNew = () => {
             </ModalFooter>
           </form>
         )}
+
+        {commentModal && (
+           <form onSubmit={handleSubmitComment(insertCommentData)}>
+            <ModalHeader>Handover Comments</ModalHeader>
+            <ModalBody>
+         
+              <Label>
+                <Textarea
+                  rows="5"
+                  className="form-control"
+                  placeholder="comments"
+                  name="comment"
+                  //id="comment"
+                  defaultValue={fetchedComment}
+                 
+                  {...commentInsertOrUpdate("comment")}
+                  // autoComplete="off"
+                />
+              </Label>
+             
+            </ModalBody>
+            <ModalFooter>
+              <div className="hidden sm:block">
+                <Button layout="outline" onClick={closeModal}>
+                  Cancel
+                </Button>
+              </div>
+              <div className="hidden sm:block">
+                <Button
+                  type="submit"
+                  className="btn btn-primary"
+                  layout="outline"
+                >
+                  Submit
+                </Button>
+              </div>
+            </ModalFooter>
+          </form>
+        )}
+
       </Modal>
     </>
   );
