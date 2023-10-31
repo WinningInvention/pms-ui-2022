@@ -18,6 +18,9 @@
         "name":"Zones/Bed","pathName":"/zones-bed","className":"fa-solid fa-bed"
     },
     {
+        "name":"Zones New Card View","pathName":"/zones-bed-new","className":"fa-solid fa-bed"
+    },
+    {
         "name":"Zones Bird Eye","pathName":"/all-zones","className":"fa-solid fa-bed"
     },
     {
