@@ -978,7 +978,198 @@ a.patient-alloc:hover
     content: "\f077"; /* fa-chevron-up */
   }
 
+/* changes start  */
 
+.vr {
+    display: inline-block;
+    align-self: stretch;
+    width: 1px;
+    min-height: 1em;
+    background-color: currentColor;
+    opacity: 0.25;
+  }
+  
+  .flex-1 {
+    flex: 1;
+  }
+  
+  .siteHeader {
+    background: #154f7d;
+  }
+  .siteHeader .siteLogo {
+    max-height: 3rem;
+  }
+  .siteHeader .dropdown-toggle,
+  .siteHeader a,
+  .siteHeader .nav-link {
+    color: #fff;
+  }
+  .siteHeader .nav-link:hover {
+    color: #fff;
+  }
+  .siteHeader .dropdown-item {
+    font-size: 1.4rem;
+    color: #000000;
+  }
+  
+  .searchWrap {
+    position: relative;
+    min-width: 3rem;
+    border-radius: 3rem;
+    overflow: hidden;
+  }
+  
+  .searchBox {
+    background-color: white;
+    outline: none;
+    border: none;
+    padding: 0;
+    width: 0;
+    height: 100%;
+    min-height: 3rem;
+    border-radius: 3rem;
+    transition-duration: 0.4s;
+  }
+  .searchBox::-moz-placeholder {
+    font-size: 1.4rem;
+  }
+  .searchBox::placeholder {
+    font-size: 1.4rem;
+  }
+  .searchBox:focus {
+    width: 100%;
+    padding-left: 1.6rem;
+    padding-right: 3rem;
+  }
+  
+  .searchBtn {
+    font-size: 2.4rem;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border-radius: 3rem;
+    width: 3rem;
+    height: 3rem;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .searchBtn:focus + .searchBtn {
+    transition-duration: 0.4s;
+    background-color: white;
+    color: black;
+  }
+  .searchBtn .mglass {
+    display: inline-block;
+    pointer-events: none;
+    transform: rotate(-45deg);
+  }
+  
+  .icon-sml {
+    height: 1.8rem;
+  }
+  
+  .icon-sml-15px {
+    height: 1.5rem;
+  }
+  
+  .white-btn {
+    background: #fff;
+    border-radius: 0.8rem;
+    border: 0;
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.55);
+  }
+  
+  .body-card-header {
+    background: #cfe2f3;
+    border-bottom: 0;
+  }
+  
+  .formWrap {
+    background: #2b4b64;
+    padding: 5px;
+    border-radius: 0.75rem;
+  }
+  
+  .switch-field input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+  }
+  
+  .switch-field label {
+    color: #fff;
+    line-height: 1;
+    text-align: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.1s ease-in-out;
+  }
+  
+  .switch-field label:hover {
+    cursor: pointer;
+  }
+  
+  .switch-field input:checked + label {
+    background-color: #fff;
+    box-shadow: none;
+    color: #000000;
+  }
+  
+  .label-white {
+    color: #fff;
+  }
+  
+  .form-select-w {
+    min-width: 120px;
+  }
+  
+  .card-row {
+    margin-bottom: 1rem;
+  }
+  
+  .card-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .card-sm {
+    margin-right: 1rem;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+    border: 0;
+  }
+  
+  .card-sm .card-body {
+    padding: 0.5rem;
+    min-width: 150px;
+    min-height: 300px;
+  }
+  
+  .card-sm.active {
+    box-shadow: 0 0 0 2px #154f7d;
+  }
+  
+  .card-sm.available {
+    background: rgba(0, 0, 0, 0.025);
+  }
+  
+  .btn-range {
+    background: #fff;
+    border-radius: 0;
+  }/*# sourceMappingURL=style.css.map */
+  
+  .margin-right-ten{
+      margin-right: 30px;
+  }
+  
+  /* changes end */
 @media (max-width: 992px) {
     #sidebarWrapper{
         max-height: 400px;

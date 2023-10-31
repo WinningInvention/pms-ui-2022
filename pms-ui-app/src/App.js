@@ -18,6 +18,7 @@ import OutlierOutQueue from './Container/AICU/OutlierOutQueue';
 import DischargeList from './Container/AICU/DischargeList';
 import HtmlPage from './Container/AICU/HtmlPage';
 import AllZoneView from './Container/AICU/AllZoneView';
+import ZonesBedDetailNew from './Container/AICU/ZoneBedDetailNew';
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -53,7 +54,7 @@ function App() {
               <Route path="/outlier-out" element={<OutlierOutQueue />} />
               <Route path="/discharge-list" element={<DischargeList />} />
               <Route path="/htmlpage" element={<HtmlPage />} />
-              
+              <Route path="/zones-bed-new" element={<ZonesBedDetailNew />} />
             </Routes>
           </div>
         </div>
